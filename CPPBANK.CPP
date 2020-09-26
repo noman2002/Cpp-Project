@@ -17,7 +17,7 @@ void getdata()
 {
 clrscr();
 cout<<"Enter the details:\nAccount no.:";
-cin>>ac;
+cin>>ac; //hello
 cout<<"\nName:";
 gets(n);
 cout<<"Age:";
