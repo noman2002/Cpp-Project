@@ -1,52 +1,50 @@
-#include<fstream.h>
+#include<fstream>
+#include<iostream>
 #include<stdio.h>
-#include<conio.h>
 #include<stdlib.h>
-#include<process.h>
 #include<string.h>
 #include<math.h>
-#include<iomanip.h>
 #include<ctype.h>
+using namespace std;
+
 class bank
 {
-long long am;
-int a,p,ac;
-char n[30],s,na[30],add[70],u[15];
+    long long am;
+    int a,p,ac;
+    char n[30],s,na[30],add[70],u[15];
 public:
-void getdata()
-{
-clrscr();
-cout<<"Enter the details:\nAccount no.:";
-cin>>ac;
-cout<<"\nName:";
-gets(n);
-cout<<"Age:";
-cin>>a;
-cout<<"Sex(M or F):";
-cin>>s;
-s=toupper(s);
-cout<<"Address:";
-gets(add);
-cout<<"Nationality:";
-cin>>na;
-cout<<"ENTER THE AMOUNT(min 500):";
-cin>>am;
-cout<<"\nEnter username:";
-cin>>u;
-cout<<"\nEnter pin:";
-cin>>p;
-cout<<"!!!!!!!!Details updated successfully!!!!!!!";
-getch();
-}
-void showdata()
-{
-clrscr();
-cout<<"Your account details are here:-";
-cout<<"\nName:"<<n;
-cout<<"\nAge:"<<a;
-cout<<"\nSex:"<<s;
-cout<<"\nAddress:"<<add;
-cout<<"\nNationality:"<<na;
+    void getdata()
+    {
+        cout<<"Enter the details:\nAccount no.:";
+        cin>>ac;
+        cout<<"\nName:";
+        gets(n);
+        cout<<"Age:";
+        cin>>a;
+        cout<<"Sex(M or F):";
+        cin>>s;
+        s=toupper(s);
+        cout<<"Address:";
+        gets(add);
+        cout<<"Nationality:";
+        cin>>na;
+        cout<<"ENTER THE AMOUNT(min 500):";
+        cin>>am;
+        cout<<"\nEnter username:";
+        cin>>u;
+        cout<<"\nEnter pin:";
+        cin>>p;
+        cout<<"!!!!!!!!Details updated successfully!!!!!!!";
+    }
+    
+    void showdata()
+    {
+        cout<<"Your account details are here:-";
+        cout<<"\nName:"<<n;
+        cout<<"\nAge:"<<a;
+        cout<<"\nSex:"<<s;
+        cout<<"\nAddress:"<<add;
+        cout<<"\nNationality:"<<na;
 cout<<"\nAmount:"<<am;
 }
 void modify()
@@ -72,7 +70,7 @@ am=am+d;
 }
 void withdraw(long long w)
 {
-int p=0;
+long long p=0;
 p=am;
 am=am-w;
 if(am<=500)
@@ -89,7 +87,7 @@ char* retun()
 {
 return u;
 }
-int retam()
+long long retam()
 {
 return am;
 }
@@ -98,7 +96,6 @@ int retac()
 return ac;
 }
 }s;
-void main();
 void modifyac()
 {
 fstream f;
@@ -111,10 +108,9 @@ return;
 }
 while(f.read((char*)&s,sizeof(s))&& v==0)
 {
-clrscr();
 cout<<"Enter new deatils:";
 s.modify();
-int p=(-1)*sizeof(s);
+long p=(-1)*sizeof(s);
 f.seekp(p,ios::cur);
 f.write((char*)&s,sizeof(s));
 cout<<"\n\t\t\t\trecord updated";
@@ -128,7 +124,6 @@ ifstream fin;
 ofstream fout;
 int ip,c=0;
 char iu[10];
-clrscr();
 cout<<"\n\n\n\n\n\t\t\t\tUser name:";
 cin>>iu;
 cout<<"\t\t\t\tPin:";
@@ -141,7 +136,7 @@ return;
 }
 while(fin.read((char*)&s,sizeof(s)))
 {
-if(strcmpi(iu,s.retun())==0)
+if(strcmp(iu,s.retun())==0)
 {
  if(ip==s.retpin())
  {
@@ -156,8 +151,6 @@ fin.close();
 if(c==0)
 {
 cout<<"\n\n\n\n\t\t\tInvalid user name or pin !!!!!!  press any key . . .";
-getch();
-main();
 }
 }
 void deleteac()
@@ -165,28 +158,26 @@ void deleteac()
 int n=s.retac();
 ifstream fin;
 ofstream fout;
-	fin.open("abc.txt",ios::binary);
-	if(!fin)
-	{
-		cout<<"File could not be open !! Press any Key...";
-		return;
-	}
-	fout.open("xyz.txt",ios::binary);
-	fin.seekg(0,ios::beg);
-	while(fin.read((char *) &s, sizeof(s)))
-	{
-		if(s.retac()!=n)
-		{
-			fout.write((char *) &s, sizeof(s));
-		}
-	}
+    fin.open("abc.txt",ios::binary);
+    if(!fin)
+    {
+        cout<<"File could not be open !! Press any Key...";
+        return;
+    }
+    fout.open("xyz.txt",ios::binary);
+    fin.seekg(0,ios::beg);
+    while(fin.read((char *) &s, sizeof(s)))
+    {
+        if(s.retac()!=n)
+        {
+            fout.write((char *) &s, sizeof(s));
+        }
+    }
       fin.close();
-	fout.close();
-	remove("abc.txt");
-	rename("xyz.txt","abc.txt");
-	cout<<"\n\n\tAccount Deleted ..";
-	getch();
-	main();
+    fout.close();
+    remove("abc.txt");
+    rename("xyz.txt","abc.txt");
+    cout<<"\n\n\tAccount Deleted ..";
 }
 void deposit1()
 {
@@ -230,7 +221,6 @@ void menu()
 {
 int x;
 long long da,wa;
-clrscr();
 do
 {
 s.showdata();
@@ -260,16 +250,14 @@ switch(x)
  }
  case 5:
  {
- main();
  break;
  }
  default:
  cout<<"\t\t\t\tInvalid input";
 }
-getch();
 }while(1);
 }
-void main()
+int main()
 {
 ifstream fin;
 ofstream fout;
@@ -277,7 +265,6 @@ fstream f;
 int x;
 do
 {
-clrscr();
 cout<<"\n\n\t\t\t\tWELCOME TO BANK\n\t\t\t\t===============\n\n\n\n\t\t\t\t1.Log in\n\t\t\t\t2.Sign up\n\t\t\t\t3.Exit\n\t\t\t\tEnter your choice:";
 cin>>x;
 if(x==1)
@@ -293,12 +280,9 @@ fout.close();
 }
 else
 {
-clrscr();
 
 cout<<"\n\n\n\n\n\n\n\t!!!!!!!........THANK YOU FOR USING OUR BANK .....!!!!!!";
-getch();
-exit(0);
+    return 0;
 }
-getch();
 }while(1);
 }
